@@ -1,2 +1,3 @@
-# project_02
+# MediQuote
 A Medical Insurance Cost Prediction Model
+
