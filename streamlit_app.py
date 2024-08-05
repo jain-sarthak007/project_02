@@ -1,5 +1,4 @@
 import subprocess
-import sys
 
 def install(package):
     """Install a package using pip."""
@@ -10,8 +9,6 @@ packages = [
     "streamlit",
     "numpy",
     "pandas",
-    "matplotlib",
-    "seaborn",
     "scikit-learn"
 ]
 
@@ -26,8 +23,6 @@ for package in packages:
 try:
     import numpy as np
     import pandas as pd
-    import matplotlib.pyplot as plt
-    import seaborn as sns
     from sklearn.model_selection import train_test_split
     from sklearn.linear_model import LinearRegression
     from sklearn import metrics
