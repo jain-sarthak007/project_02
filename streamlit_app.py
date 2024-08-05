@@ -1,49 +1,3 @@
-import os
-import requests
-
-def download_file(url, local_filename):
-    """Download a file from a URL and save it locally."""
-    response = requests.get(url)
-    response.raise_for_status()  # Check for errors
-    with open(local_filename, 'wb') as f:
-        f.write(response.content)
-
-def create_requirements_file(filename):
-    """Create a requirements.txt file with necessary dependencies."""
-    requirements = [
-        "streamlit",
-        "numpy",
-        "pandas",
-        "matplotlib",
-        "seaborn",
-        "scikit-learn"
-    ]
-    with open(filename, 'w') as f:
-        for req in requirements:
-            f.write(f"{req}\n")
-
-def main():
-    # URLs of the files to download
-    dataset_url = "https://example.com/path/to/your/medical_insurance.csv"
-    dataset_filename = "medical_insurance.csv"
-    requirements_filename = "requirements.txt"
-    
-    # Create directories if they don't exist
-    os.makedirs('data', exist_ok=True)
-    
-    # Download the dataset
-    print(f"Downloading dataset from {dataset_url}...")
-    download_file(dataset_url, os.path.join('data', dataset_filename))
-    print(f"Dataset saved as {dataset_filename}")
-    
-    # Create requirements.txt
-    print(f"Creating {requirements_filename}...")
-    create_requirements_file(requirements_filename)
-    print(f"{requirements_filename} created")
-
-if __name__ == "__main__":
-    main()
-
 import streamlit as st
 import numpy as np
 import pandas as pd
@@ -59,7 +13,7 @@ st.title("Medical Insurance Cost Prediction")
 # Load dataset
 @st.cache
 def load_data():
-    return pd.read_csv('medical_insurance.csv')
+    return pd.read_csv('data/medical_insurance.csv')
 
 # Load and cache dataset
 insurance_dataset = load_data()
