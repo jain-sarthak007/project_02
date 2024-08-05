@@ -1,17 +1,25 @@
+import subprocess
+import sys
 
-# Try importing libraries and handle errors
-try:
+def install(package):
+    """Install a package using pip."""
+    subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+
+# Install packages individually
+print("Installing streamlit...")
+install("streamlit")
+
+print("Installing scikit-learn...")
+install("scikit-learn")
+
+
     import numpy as np
     import pandas as pd
     from sklearn.model_selection import train_test_split
     from sklearn.linear_model import LinearRegression
     from sklearn import metrics
     import streamlit as st
-except ImportError as e:
-    # Display error in Streamlit and stop execution if import fails
-    import streamlit as st
-    st.error(f"Error importing libraries: {e}")
-    st.stop()
+
 
 # Title
 st.title("Medical Insurance Cost Prediction")
