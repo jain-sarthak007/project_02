@@ -1,11 +1,41 @@
-import streamlit as st
+import subprocess
+import sys
+
+def install(package):
+    subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+
+# List of packages to install
+packages = [
+    "requests",
+    "streamlit",
+    "numpy",
+    "pandas",
+    "matplotlib",
+    "seaborn",
+    "scikit-learn"
+]
+
+# Install packages
+for package in packages:
+    install(package)
+
+import os
+import requests
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn import metrics
+
+# Attempt to import matplotlib and handle import error
+try:
+    import matplotlib.pyplot as plt
+    matplotlib_available = True
+except ImportError:
+    matplotlib_available = False
+    import streamlit as st
+    st.warning("Matplotlib is not installed. Some visualizations may not be available.")
 
 # Title
 st.title("Medical Insurance Cost Prediction")
@@ -29,47 +59,50 @@ if st.checkbox('Show Dataset Info'):
 # Plotting distribution
 st.subheader("Data Analysis")
 
-if st.checkbox('Show Age Distribution'):
-    st.write("Age Distribution:")
-    fig, ax = plt.subplots(figsize=(6, 6))
-    sns.histplot(insurance_dataset['age'], kde=True, ax=ax)
-    st.pyplot(fig)
+if matplotlib_available:
+    if st.checkbox('Show Age Distribution'):
+        st.write("Age Distribution:")
+        fig, ax = plt.subplots(figsize=(6, 6))
+        sns.histplot(insurance_dataset['age'], kde=True, ax=ax)
+        st.pyplot(fig)
 
-if st.checkbox('Show Gender Distribution'):
-    st.write("Gender Distribution:")
-    fig, ax = plt.subplots(figsize=(6, 6))
-    sns.countplot(x='sex', data=insurance_dataset, ax=ax)
-    st.pyplot(fig)
+    if st.checkbox('Show Gender Distribution'):
+        st.write("Gender Distribution:")
+        fig, ax = plt.subplots(figsize=(6, 6))
+        sns.countplot(x='sex', data=insurance_dataset, ax=ax)
+        st.pyplot(fig)
 
-if st.checkbox('Show BMI Distribution'):
-    st.write("BMI Distribution:")
-    fig, ax = plt.subplots(figsize=(6, 6))
-    sns.histplot(insurance_dataset['bmi'], kde=True, ax=ax)
-    st.pyplot(fig)
+    if st.checkbox('Show BMI Distribution'):
+        st.write("BMI Distribution:")
+        fig, ax = plt.subplots(figsize=(6, 6))
+        sns.histplot(insurance_dataset['bmi'], kde=True, ax=ax)
+        st.pyplot(fig)
 
-if st.checkbox('Show Children Distribution'):
-    st.write("Children Distribution:")
-    fig, ax = plt.subplots(figsize=(6, 6))
-    sns.countplot(x='children', data=insurance_dataset, ax=ax)
-    st.pyplot(fig)
+    if st.checkbox('Show Children Distribution'):
+        st.write("Children Distribution:")
+        fig, ax = plt.subplots(figsize=(6, 6))
+        sns.countplot(x='children', data=insurance_dataset, ax=ax)
+        st.pyplot(fig)
 
-if st.checkbox('Show Smoker Distribution'):
-    st.write("Smoker Distribution:")
-    fig, ax = plt.subplots(figsize=(6, 6))
-    sns.countplot(x='smoker', data=insurance_dataset, ax=ax)
-    st.pyplot(fig)
+    if st.checkbox('Show Smoker Distribution'):
+        st.write("Smoker Distribution:")
+        fig, ax = plt.subplots(figsize=(6, 6))
+        sns.countplot(x='smoker', data=insurance_dataset, ax=ax)
+        st.pyplot(fig)
 
-if st.checkbox('Show Region Distribution'):
-    st.write("Region Distribution:")
-    fig, ax = plt.subplots(figsize=(6, 6))
-    sns.countplot(x='region', data=insurance_dataset, ax=ax)
-    st.pyplot(fig)
+    if st.checkbox('Show Region Distribution'):
+        st.write("Region Distribution:")
+        fig, ax = plt.subplots(figsize=(6, 6))
+        sns.countplot(x='region', data=insurance_dataset, ax=ax)
+        st.pyplot(fig)
 
-if st.checkbox('Show Charges Distribution'):
-    st.write("Charges Distribution:")
-    fig, ax = plt.subplots(figsize=(6, 6))
-    sns.histplot(insurance_dataset['charges'], kde=True, ax=ax)
-    st.pyplot(fig)
+    if st.checkbox('Show Charges Distribution'):
+        st.write("Charges Distribution:")
+        fig, ax = plt.subplots(figsize=(6, 6))
+        sns.histplot(insurance_dataset['charges'], kde=True, ax=ax)
+        st.pyplot(fig)
+else:
+    st.info("Matplotlib is not available. Some charts may not be displayed.")
 
 # Data Pre-processing
 st.subheader("Predictive System")
