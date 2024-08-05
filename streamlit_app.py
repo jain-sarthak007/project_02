@@ -1,23 +1,3 @@
-import subprocess
-
-def install(package):
-    """Install a package using pip."""
-    subprocess.check_call([sys.executable, "-m", "pip", "install", package])
-
-# List of packages to ensure are installed
-packages = [
-    "streamlit",
-    "numpy",
-    "pandas",
-    "scikit-learn"
-]
-
-# Install packages
-for package in packages:
-    try:
-        install(package)
-    except subprocess.CalledProcessError:
-        print(f"Failed to install {package}")
 
 # Try importing libraries and handle errors
 try:
