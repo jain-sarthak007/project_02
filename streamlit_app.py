@@ -1,16 +1,6 @@
 import subprocess
-import sys
 
-# def install(package):
-#     """Install a package using pip."""
-#     subprocess.check_call([sys.executable, "-m", "pip", "install", package])
-
-# # Install packages individually
-# print("Installing streamlit...")
-# install("streamlit")
-
-# print("Installing scikit-learn...")
-# install("scikit-learn")
+install("scikit-learn")
 
 
 import numpy as np
